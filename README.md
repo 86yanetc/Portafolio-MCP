@@ -114,7 +114,6 @@ graph TD
     class Herramientas_Expuestas modulo;
     class Persistencia_Datos almacenamiento;
 ```
-
 ## 🧱 Desglose Componente por Componente de la Arquitectura
 
 Para garantizar un diseño modular, de alta velocidad y tolerante a fallos, la infraestructura se divide en cuatro capas operativas estrictamente desacopladas:
