@@ -164,12 +164,12 @@ Constituye el cerebro instrumental del ecosistema. Construido sobre el SDK de `F
   <i><b>Figura 1: </b>Probando la herramienta "verificar_inventario_y_precio".</i>
 </p>
 
-![PROTOTIPO1](./imagenes/pregunta1.jpg)
+![PROTOTIPO1](./imagenes/pregunta1_ok.jpg)
 <p align="center">
   <i><b>Figura 1: </b>Probando la herramienta "registrar_venta_simulada".</i>
 </p>
 
-![PROTOTIPO1](./imagenes/pregunta2.jpg)
+![PROTOTIPO1](./imagenes/pregunta2_ok.jpg)
 <p align="center">
   <i><b>Figura 1: </b>Probando la herramienta "agregar_nuevo_producto".</i>
 </p>
