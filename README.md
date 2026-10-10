@@ -164,6 +164,12 @@ Constituye el cerebro instrumental del ecosistema. Construido sobre el SDK de `F
   <i><b>Figura 1: </b>Probando la herramienta "verificar_inventario_y_precio".</i>
 </p>
 
+![PROTOTIPO1](./imagenes/pregunta1.jpg)
+<p align="center">
+  <i><b>Figura 1: </b>Probando la herramienta "registrar_venta_simulada".</i>
+</p>
+
+
 **Pregunta 2: Hola. Registrá una venta simulada de 3 mouses, por favor. Actualizá el sistema local inmediatamente.**
 
 **Pregunta 3: Hola, empezamos a importar un artículo nuevo. Por favor, da de alta en el sistema local la 'Laptop ASUS ROG' en la categoría 'Computadoras', con un precio de 1500 USD y un stock inicial de 5 unidades.**
