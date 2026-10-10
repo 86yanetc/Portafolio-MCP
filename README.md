@@ -65,22 +65,22 @@ graph TD
     classDef modulo fill:#e6f4ea,stroke:#137333,stroke-width:2px,color:#137333;
     classDef almacenamiento fill:#fef7e0,stroke:#b06000,stroke-width:2px,color:#b06000;
 
-    subgraph Perimetro_Local [🔒 Perímetro de Aislamiento Local (Edge)]
+    subgraph Perimetro_Local ["🔒 Perímetro de Aislamiento Local (Edge)"]
         
-        subgraph Cliente_UI [💻 Cliente / Orquestador]
+        subgraph Cliente_UI ["💻 Cliente / Orquestador"]
             ST[Interfaz Gráfica<br>Streamlit UI]:::infraestructura
             LLM[Engine de Inferencia<br>Qwen2.5 GGUF]:::infraestructura
         end
 
-        subgraph Capa_Integracion [⚡ Canal de Transporte]
+        subgraph Capa_Integracion ["⚡ Canal de Transporte"]
             RPC[Protocolo FastMCP<br>JSON-RPC 2.0 via stdio]:::protocolo
         end
 
-        subgraph Servidor_Core [🔌 Servidor FastMCP - server.py]
-            SRV[Núcleo del Servidor MCP]:::modulo
+        subgraph Servidor_Core ["🔌 Servidor FastMCP - server.py"]
+            SRV[Unidad Central Servidor MCP]:::modulo
             
             %% LAS HERRAMIENTAS EXPUESTAS (Servicios Funcionales)
-            subgraph Herramientas_Expuestas [🛠️ Catálogo de Capacidades]
+            subgraph Herramientas_Expuestas ["🛠️ Catálogo de Capacidades"]
                 T1[verificar_inventario_y_precio]:::modulo
                 T2[registrar_venta_simulada]:::modulo
                 T3[agregar_nuevo_producto]:::modulo
@@ -90,23 +90,23 @@ graph TD
             end
         end
 
-        subgraph Persistencia_Datos [💾 Base de Datos Local]
+        subgraph Persistencia_Datos ["💾 Base de Datos Local"]
             CSV[(Sistema de Archivos<br>datos_ventas.csv)]:::almacenamiento
         end
     end
 
-    subgraph Red_Externa [🌐 Red WAN / Nube Pública]
+    subgraph Red_Externa ["🌐 Red WAN / Nube Pública"]
         DDG[API DuckDuckGo<br>Search Engine]:::infraestructura
     end
 
     %% Relaciones de Conectividad Estructural
-    ST <-->|Inferencia ReAct| LLM
-    LLM <-->|Handshake de Contexto| RPC
+    ST <--> LLM
+    LLM <--> RPC
     RPC <--> SRV
     
     %% Mapeo de Ejecución de las Herramientas
-    T1 & T2 & T3 & T4 & T5 <-->|Manipulación de Datos / Pandas| CSV
-    T6 -.->|Consultas Asíncronas HTTPS| DDG
+    T1 & T2 & T3 & T4 & T5 <--> CSV
+    T6 -.-> DDG
 
     %% Aplicación de Clases Estéticas
     class Perimetro_Local,Cliente_UI,Servidor_Core infraestructura;
