@@ -59,70 +59,58 @@ La solución rompe con los diseños tradicionales rígidos de "chatbots" e imple
 
 ```mermaid
 graph TD
-    %% Estilos de Nodos y Paleta Corporativa
-    classDef usuario fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1;
-    classDef frontend fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#e65100;
-    classDef cliente fill:#ede7f6,stroke:#4a148c,stroke-width:2px,color:#4a148c;
-    classDef backend fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
-    classDef datos fill:#eceff1,stroke:#37474f,stroke-width:2px,color:#263238;
+    %% Estilos de Arquitectura Industrial
+    classDef infraestructura fill:#f8f9fa,stroke:#3c4043,stroke-width:2px,color:#3c4043;
+    classDef protocolo fill:#e8f0fe,stroke:#1a73e8,stroke-width:2px,color:#1a73e8;
+    classDef modulo fill:#e6f4ea,stroke:#137333,stroke-width:2px,color:#137333;
+    classDef almacenamiento fill:#fef7e0,stroke:#b06000,stroke-width:2px,color:#b06000;
 
-    %% Bloque de Interacción de Usuario
-    U[👤 Usuario Final]:::usuario
-    
-    subgraph UI_Streamlit [💻 Capa de Presentación - app.py]
-        ST_UI[Streamlit Frontend]:::frontend
-        ST_STATE{st.session_state<br>Persistencia Visual}:::frontend
+    subgraph Perimetro_Local [🔒 Perímetro de Aislamiento Local (Edge)]
+        
+        subgraph Cliente_UI [💻 Cliente / Orquestador]
+            ST[Interfaz Gráfica<br>Streamlit UI]:::infraestructura
+            LLM[Engine de Inferencia<br>Qwen2.5 GGUF]:::infraestructura
+        end
+
+        subgraph Capa_Integracion [⚡ Canal de Transporte]
+            RPC[Protocolo FastMCP<br>JSON-RPC 2.0 via stdio]:::protocolo
+        end
+
+        subgraph Servidor_Core [🔌 Servidor FastMCP - server.py]
+            SRV[Núcleo del Servidor MCP]:::modulo
+            
+            %% LAS HERRAMIENTAS EXPUESTAS (Servicios Funcionales)
+            subgraph Herramientas_Expuestas [🛠️ Catálogo de Capacidades]
+                T1[verificar_inventario_y_precio]:::modulo
+                T2[registrar_venta_simulada]:::modulo
+                T3[agregar_nuevo_producto]:::modulo
+                T4[calcular_ingreso_total]:::modulo
+                T5[obtener_datos_grafico_inventario]:::modulo
+                T6[buscar_en_internet]:::modulo
+            end
+        end
+
+        subgraph Persistencia_Datos [💾 Base de Datos Local]
+            CSV[(Sistema de Archivos<br>datos_ventas.csv)]:::almacenamiento
+        end
     end
 
-    subgraph Orquestacion_Local [🤖 Engine Agéntico Asíncrono - app.py]
-        CLI_MCP[Cliente MCP<br>Bucle Asyncio]:::cliente
-        QWEN[Cerebro Local<br>Qwen2.5 GGUF]:::cliente
-        FILTER{¿Detecta XML<br>tool_call?}:::cliente
+    subgraph Red_Externa [🌐 Red WAN / Nube Pública]
+        DDG[API DuckDuckGo<br>Search Engine]:::infraestructura
     end
 
-    subgraph Servidor_FastMCP [🔌 Pasarela Operativa - server.py]
-        SRV_MCP[Servidor FastMCP<br>Transporte stdio]:::backend
-        VAL_PYD[Validación Type-Safe<br>Guardrails Pydantic]:::backend
-        ROUTER{Router de<br>Herramientas}:::backend
-    end
+    %% Relaciones de Conectividad Estructural
+    ST <-->|Inferencia ReAct| LLM
+    LLM <-->|Handshake de Contexto| RPC
+    RPC <--> SRV
+    
+    %% Mapeo de Ejecución de las Herramientas
+    T1 & T2 & T3 & T4 & T5 <-->|Manipulación de Datos / Pandas| CSV
+    T6 -.->|Consultas Asíncronas HTTPS| DDG
 
-    subgraph Almacenamiento_y_Red [💾 Capa de Datos & Servicios Externos]
-        CSV[(datos_ventas.csv<br>Pandas Engine)]:::datos
-        DDG[API DuckDuckGo<br>Navegación Web]:::datos
-    end
-
-    %% Flujo de Comunicación e Intercambio de Payloads (Handshake)
-    U -->|1. Consulta Lenguaje Natural| ST_UI
-    ST_UI -->|2. Inicia Hilo Async| CLI_MCP
-    CLI_MCP -->|3. prompt + messages| QWEN
-    QWEN -->|4. Genera Tokens| FILTER
-    
-    %% Ramificación del Borde Condicional (ReAct Loop)
-    FILTER -->|NO: Texto Libre| ST_STATE
-    FILTER -->|SI: tool_call XML| SRV_MCP
-    
-    %% Flujo Servidor MCP (JSON-RPC 2.0)
-    SRV_MCP -->|5. Payload JSON-RPC| VAL_PYD
-    VAL_PYD -->|6. Esquema Validado| ROUTER
-    
-    %% Selección Autónoma de Herramientas
-    ROUTER -->|obtener_stock / registrar_venta| CSV
-    ROUTER -->|buscar_en_internet| DDG
-    
-    %% Retorno Asíncrono y Pasamanos de Memoria
-    CSV -->|7. Dataframe / JSON| SRV_MCP
-    DDG -->|7. Web Snippets| SRV_MCP
-    SRV_MCP -->|8. tool_response XML| CLI_MCP
-    
-    %% Intercepción de Datos del Gráfico
-    CLI_MCP -->|9. Intercepta datos_grafico| ST_STATE
-    ST_STATE -->|10. Renderiza st.bar_chart| ST_UI
-    CLI_MCP -->|11. Re-inyecta Contexto Fresh| QWEN
-
-    %% Aplicación de Clases
-    class U usuario;
-    class ST_UI,ST_STATE frontend;
-    class CLI_MCP,QWEN,FILTER cliente;
-    class SRV_MCP,VAL_PYD,ROUTER backend;
-    class CSV,DDG datos;
+    %% Aplicación de Clases Estéticas
+    class Perimetro_Local,Cliente_UI,Servidor_Core infraestructura;
+    class Capa_Integracion protocolo;
+    class Herramientas_Expuestas modulo;
+    class Persistencia_Datos almacenamiento;
 ```
