@@ -146,3 +146,13 @@ Constituye el cerebro instrumental del ecosistema. Construido sobre el SDK de `F
 
 #### 🌐 Canal de Datos Público (External Cloud Gateway)
 - **`buscar_en_internet`:** Orquestador de red externa que actúa como una compuerta segura de capa 7 hacia la API pública de DuckDuckGo. Se ejecuta de forma asíncrona únicamente cuando el modelo de IA deduce que la consulta local no es suficiente para resolver el problema, recuperando snippets comerciales del mercado internacional para inyectarlos limpiamente en la ventana de contexto del agente.
+
+## 🛠️ Stack Tecnológico Principal
+
+**Frameworks & Protocolos:** Model Context Protocol (MCP Standard), FastMCP, Streamlit (UI Framework), Asyncio (Asynchronous Engine).
+
+**Modelos (LLMs) & Inferencia:** Qwen2.5-Coder-7B-Instruct (GGUF Local), Llama-3.1-8B-Instruct (GGUF Compatible), llama-cpp-python (Inference Engine).
+
+**Bases de Datos & Manipulación:** Pandas (Dataframe Processing), Local File System (CSV Storage Core).
+
+**Conectividad WAN & Integraciones:** DuckDuckGo Text Search API (Híbrida Web), JSON-RPC 2.0 (Estructura de Payloads via stdio).
