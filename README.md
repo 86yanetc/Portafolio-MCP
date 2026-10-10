@@ -159,7 +159,6 @@ Constituye el cerebro instrumental del ecosistema. Construido sobre el SDK de `F
 
 ## 🖥️ Sección: Prototipo de Interfaz
 
-**Pregunta 1: Hola, por favor búscame el precio y el stock actual de las Laptops en nuestro sistema local.**
 ![PROTOTIPO1](./imagenes/pregunta.jpg)
 <p align="center">
   <i><b>Figura 1: </b>Probando la herramienta "verificar_inventario_y_precio".</i>
