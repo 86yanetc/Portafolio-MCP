@@ -169,6 +169,11 @@ Constituye el cerebro instrumental del ecosistema. Construido sobre el SDK de `F
   <i><b>Figura 1: </b>Probando la herramienta "registrar_venta_simulada".</i>
 </p>
 
+![PROTOTIPO1](./imagenes/pregunta2.jpg)
+<p align="center">
+  <i><b>Figura 1: </b>Probando la herramienta "agregar_nuevo_producto".</i>
+</p>
+
 
 **Pregunta 2: Hola. Registrá una venta simulada de 3 mouses, por favor. Actualizá el sistema local inmediatamente.**
 
