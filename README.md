@@ -159,6 +159,19 @@ Constituye el cerebro instrumental del ecosistema. Construido sobre el SDK de `F
 
 ## 🖥️ Sección: Prototipo de Interfaz
 
+**Pregunta 1: Hola, por favor búscame el precio y el stock actual de las Laptops en nuestro sistema local.**
+![PROTOTIPO1](./imagenes/pregunta.jpg)
+<p align="center">
+  <i><b>Figura 1: </b>Probando la herramienta "verificar_inventario_y_precio".</i>
+</p>
+
+**Pregunta 2: Hola. Registrá una venta simulada de 3 mouses, por favor. Actualizá el sistema local inmediatamente.**
+
+**Pregunta 3: Hola, empezamos a importar un artículo nuevo. Por favor, da de alta en el sistema local la 'Laptop ASUS ROG' en la categoría 'Computadoras', con un precio de 1500 USD y un stock inicial de 5 unidades.**
+
+**Pregunta 4: Mostradme un gráfico con el stock actual de los productos**
+
+
 
 ## 📜 Conclusión: El Futuro de la IA es Estándar y Desacoplado, no Monolítico
 
@@ -171,4 +184,5 @@ La implementación éxito de estrategias de **FinOps de costo marginal cero** y 
 <p align="center">
   <b>"Este ecosistema es el resultado de entender que la Inteligencia Artificial no debe ser un experimento aislado en una nube pública, sino un componente central, robusto, type-safe y confiable capaz de orquestar herramientas sobre millones de datos corporativos integrados en la infraestructura local."</b>
 </p>
+
 
