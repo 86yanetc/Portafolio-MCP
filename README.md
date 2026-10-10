@@ -114,3 +114,36 @@ graph TD
     class Herramientas_Expuestas modulo;
     class Persistencia_Datos almacenamiento;
 ```
+
+## 🧱 Desglose Componente por Componente de la Arquitectura
+
+Para garantizar un diseño modular, de alta velocidad y tolerante a fallos, la infraestructura se divide en cuatro capas operativas estrictamente desacopladas:
+
+### 1. Capa de Presentación (Streamlit UI)
+Constituye el frontend perimetral del sistema. Su única responsabilidad es capturar la intención del usuario en lenguaje natural y renderizar las respuestas analíticas.
+* **Persistencia de Estado Dinámica (`st.session_state`):** Debido a la naturaleza reactiva de Streamlit (que re-ejecuta el script completo ante cualquier interacción), se implementó un cofre de persistencia en memoria. Esto permite aislar los ciclos de vida de los datos, logrando que los gráficos de barra interactivos permanezcan estáticos e inmutables una vez que la transacción del backend concluye, evitando ejecuciones redundantes del LLM.
+
+### 2. Motor de Inferencia Edge (`Engine GGUF`)
+Es el núcleo cognitivo descentralizado de la plataforma. Corre de forma 100% nativa en la CPU/GPU del cliente mediante la librería de bajo nivel `llama-cpp-python`, consumiendo un modelo cuantizado **Qwen2.5-7B-Instruct**.
+* **Orquestación ReAct (Reasoning and Acting):** El modelo no opera de forma pasiva. Aplica un bucle de pensamiento iterativo en el cual autoevalúa si la pregunta requiere datos del negocio. Al estar desacoplado de las herramientas, el modelo solo se encarga de generar los tokens XML necesarios (`<tool_call>`) para delegar la fuerza bruta del código hacia la pasarela operativa.
+
+### 3. Canal de Transporte (Handshake JSON-RPC 2.0 via `stdio`)
+Es el cordón umbilical que une el cerebro del agente con las capacidades del servidor. 
+* **Abstracción Estándar de Mensajería:** En lugar de acoplar funciones de Python directamente a la IA, la comunicación está gobernada por el estándar internacional **Model Context Protocol (MCP)**. Las peticiones de herramientas viajan empaquetadas de manera asíncrona mediante payloads estructurados JSON-RPC a través de tuberías estándar de entrada/salida (`stdio`), logrando que el cliente y el servidor hablen un idioma universal, agnóstico a la tecnología del backend.
+
+### 4. Pasarela Operativa & Catálogo de Capacidades (FastMCP Server)
+Constituye el cerebro instrumental del ecosistema. Construido sobre el SDK de `FastMCP`, inicializa un subproceso aislado de terminal que expone y valida de forma estricta (Type-Safe con Pydantic) las habilidades del agente. Se encarga de aislar la persistencia y conectividad mediante dos canales segregados:
+
+#### 🔹 Canal de Datos Privado (Local File System Integration)
+- **`verificar_inventario_y_precio`:** Servicio de lectura analítica que expone stock y precios locales, utilizando filtros difusos por tokens semánticos para neutralizar errores sintácticos humanos (como plurales).
+
+- **`registrar_venta_simulada`:** Motor transaccional de escritura encargado de evaluar disponibilidades en disco de forma segura, descontar unidades físicas del inventario y recalcular la facturación en caliente sobre el archivo `datos_ventas.csv`.
+
+- **`agregar_nuevo_producto`:** Servicio de inserción persistente (`INSERT`) que expande de forma autónoma el catálogo de la organización, incorporando guardrails estrictos de comparación de cadenas para mitigar la duplicación accidental de productos.
+
+- **`calcular_ingreso_total`:** Herramienta de agregación matemática encargada de consolidar los flujos financieros históricos acumulados en el negocio.
+
+- **`obtener_datos_grafico_inventario`:** Serializador de datos estructurados encargado de empaquetar las existencias vigentes en arreglos JSON limpios, optimizando el ancho de banda del canal MCP al enviar únicamente las columnas estrictamente requeridas por el frontend.
+
+#### 🌐 Canal de Datos Público (External Cloud Gateway)
+- **`buscar_en_internet`:** Orquestador de red externa que actúa como una compuerta segura de capa 7 hacia la API pública de DuckDuckGo. Se ejecuta de forma asíncrona únicamente cuando el modelo de IA deduce que la consulta local no es suficiente para resolver el problema, recuperando snippets comerciales del mercado internacional para inyectarlos limpiamente en la ventana de contexto del agente.
