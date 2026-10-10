@@ -164,23 +164,20 @@ Constituye el cerebro instrumental del ecosistema. Construido sobre el SDK de `F
   <i><b>Figura 1: </b>Probando la herramienta "verificar_inventario_y_precio".</i>
 </p>
 
-![PROTOTIPO1](./imagenes/pregunta1_ok.jpg)
+![PROTOTIPO2](./imagenes/pregunta1_ok.jpg)
 <p align="center">
-  <i><b>Figura 1: </b>Probando la herramienta "registrar_venta_simulada".</i>
+  <i><b>Figura 2: </b>Probando la herramienta "registrar_venta_simulada".</i>
 </p>
 
-![PROTOTIPO1](./imagenes/pregunta2_ok.jpg)
+![PROTOTIPO3](./imagenes/pregunta2_ok.jpg)
 <p align="center">
-  <i><b>Figura 1: </b>Probando la herramienta "agregar_nuevo_producto".</i>
+  <i><b>Figura 3: </b>Probando la herramienta "agregar_nuevo_producto".</i>
 </p>
 
-
-**Pregunta 2: Hola. Registrá una venta simulada de 3 mouses, por favor. Actualizá el sistema local inmediatamente.**
-
-**Pregunta 3: Hola, empezamos a importar un artículo nuevo. Por favor, da de alta en el sistema local la 'Laptop ASUS ROG' en la categoría 'Computadoras', con un precio de 1500 USD y un stock inicial de 5 unidades.**
-
-**Pregunta 4: Mostradme un gráfico con el stock actual de los productos**
-
+![PROTOTIPO4](./imagenes/pregunta3.jpg)
+<p align="center">
+  <i><b>Figura 4: </b>Visualización de gráfico con el stock actual de los productos.</i>
+</p>
 
 
 ## 📜 Conclusión: El Futuro de la IA es Estándar y Desacoplado, no Monolítico
